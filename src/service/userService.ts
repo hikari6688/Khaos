@@ -18,7 +18,8 @@ export const registerService = async function (ctx: any) {
     gender,
     passWord: pwd,
   });
-  return await userDao.register(newUser);
+  //  await userDao.register(newUser);
+  return 
 };
 
 // export const findUserByName = async function (data) {
