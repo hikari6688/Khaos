@@ -3,7 +3,8 @@ export const catchError = async (ctx: any, next: () => Promise<any>) => {
     await next();
   } catch (error) {
     if (error.errorCode) {
-      return (ctx.body = error.msg);
+      const { errorCode, ...rest } = error;
+      return (ctx.body = { ...rest, code: error.errorCode });
     }
   }
 };

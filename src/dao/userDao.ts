@@ -1,25 +1,50 @@
-//dao层只用关心和数据库的连接
-//暴露对数据库操作的方法出去
 import userModel from "../models/userModel";
-const register = async function (data:any) {
+import { IPage } from "../interface";
+interface IgetUserListPage {
+  name: string;
+  idCard: string;
+  page: IPage;
+}
+
+const register = async function (data: any) {
   return await userModel.create(data);
 };
 //根据用户姓名查询
-const findUserByName = async function (data:any) {
-  return await userModel.find(data);
+const findUserByAccount = async function (params: any) {
+  return await userModel.find(params);
 };
 //根据用户唯一id查询
-const findUserById = async function (data:any) {
+const findUserById = async function (data: any) {
   return await userModel.findOne(data);
 };
 //登陆
-const login = async function (data:any) {
-  return await userModel.findOne({ name: data.name });
+const login = async function (account: string) {
+  return await userModel.findOne({ account });
 };
+const getUserListPage = async function (query?: IgetUserListPage) {
+  const { name, idCard, page } = query;
+  const { current = 1, pageSize = 10 } = page;
+  console.log(query);
+  const filter = {
+    $or: [
+      { name: { $regex: name, $options: "$i" } },
+      { idCard: { $regex: idCard } },
+    ],
+  };
+  let result: any = {};
+  result.total = await userModel.find(filter).countDocuments();
+  console.log(result);
+  result.data = await userModel
+    .find(filter)
+    .skip((Number(current) - 1) * Number(pageSize))
+    .limit(Number(pageSize));
 
+  return result;
+};
 export default {
   login,
   findUserById,
-  findUserByName,
+  findUserByAccount,
   register,
+  getUserListPage,
 };
