@@ -17,6 +17,14 @@ const findUserByAccount = async function (params: any) {
 const findUserById = async function (data: any) {
   return await userModel.findOne(data);
 };
+//删除用户
+const removeUser = async function (data: any) {
+  return await userModel.deleteOne({ _id: data.id });
+};
+//修改用户信息
+const updateUser = async function (data: any) {
+  return await userModel.updateOne({ _id: data.id }, data);
+};
 //登陆
 const login = async function (account: string) {
   return await userModel.findOne({ account });
@@ -47,4 +55,6 @@ export default {
   findUserByAccount,
   register,
   getUserListPage,
+  removeUser,
+  updateUser,
 };

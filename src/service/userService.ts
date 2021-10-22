@@ -60,3 +60,20 @@ export const getUserListPage = async function (ctx: Context) {
   const userList = await userDao.getUserListPage(query as any);
   return userList;
 };
+
+export const removeUser = async function (ctx: Context) {
+  const query = ctx.request.query;
+  const user = await userDao.removeUser(query as any);
+  return user;
+};
+
+export const updateUser = async function (ctx: Context) {
+  const query = ctx.request.query;
+  const user = await userDao.updateUser(query as any);
+  return userDao;
+};
+export const getUserDetail = async function (ctx: Context) {
+  const query = ctx.request.query;
+  const user = await userDao.findUserById(query as any);
+  return user;
+};
