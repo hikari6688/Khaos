@@ -11,7 +11,7 @@ import {
   getUserDetail,
 } from "../service/userService";
 //添加登录用户
-router.post("/register", async (ctx: Context) => {
+router.post("/addUser", async (ctx: Context) => {
   const result = await registerService(ctx);
   ctx.body = result;
 });

@@ -40,14 +40,12 @@ interface IqueryParams extends IpageParams {
 function queryPage<T extends IpageParams>(model: Model<any>) {
   return async function (queryPrams: T, queryKeys: Array<any>) {
     const { current = 1, pageSize = 10 } = queryPrams;
-    console.log(queryKeys);
     const filter = queryKeys.reduce((pre: any, cur) => {
       if (queryPrams[cur]) {
         pre[cur] = { $regex: queryPrams[cur] };
       }
       return pre;
     }, {});
-    console.log(filter);
     const _filter = { $and: [filter] };
     const result: any = {};
     result.total = await model.find(_filter).countDocuments();
