@@ -10,7 +10,7 @@ interface IgetUserListPage {
   idCard: string;
   page: IPage;
 }
-export const registerService = async function (ctx: any) {
+export const addUser = async function (ctx: any) {
   const { name, account, roleId, idCard, gender, password } = ctx.request.body;
   const unique = await userDao.findUserByAccount({ account });
   if (unique.length) {
@@ -25,7 +25,7 @@ export const registerService = async function (ctx: any) {
     gender,
     password: pwd,
   });
-  let userResult = await userDao.register(newUser);
+  let userResult = await userDao.addUser(newUser);
   const res = {
     ...omit(userResult._doc, ["password"]),
     code: 200,

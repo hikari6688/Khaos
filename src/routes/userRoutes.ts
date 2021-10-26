@@ -3,7 +3,7 @@ import { Context } from "koa";
 import * as Router from "koa-router";
 const router = new Router();
 import {
-  registerService,
+  addUser,
   login,
   getUserListPage,
   removeUser,
@@ -11,8 +11,8 @@ import {
   getUserDetail,
 } from "../service/userService";
 //添加登录用户
-router.post("/register", async (ctx: Context) => {
-  const result = await registerService(ctx);
+router.post("/addUser", async (ctx: Context) => {
+  const result = await addUser(ctx);
   ctx.body = result;
 });
 //登陆

@@ -1,4 +1,4 @@
-import { mongoose } from "../db/db";
+import { mongoose } from '../db/db';
 const { Schema } = mongoose;
 const userSchma = new Schema(
   {
@@ -26,7 +26,11 @@ const userSchma = new Schema(
       type: String,
       require: true,
     },
+    phoneNumber: {
+      type: String,
+      require: true,
+    },
   },
   { versionKey: false }
 );
-export default mongoose.model("user ", userSchma);
+export default mongoose.model('user ', userSchma);

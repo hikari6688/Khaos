@@ -2,7 +2,7 @@ import userModel from "../models/userModel";
 import { Model } from "mongoose";
 import { IPage } from "../interface";
 
-const register = async function (data: any) {
+const addUser = async function (data: any) {
   return await userModel.create(data);
 };
 //根据用户姓名查询
@@ -40,14 +40,12 @@ interface IqueryParams extends IpageParams {
 function queryPage<T extends IpageParams>(model: Model<any>) {
   return async function (queryPrams: T, queryKeys: Array<any>) {
     const { current = 1, pageSize = 10 } = queryPrams;
-    console.log(queryKeys);
     const filter = queryKeys.reduce((pre: any, cur) => {
       if (queryPrams[cur]) {
         pre[cur] = { $regex: queryPrams[cur] };
       }
       return pre;
     }, {});
-    console.log(filter);
     const _filter = { $and: [filter] };
     const result: any = {};
     result.total = await model.find(_filter).countDocuments();
@@ -60,6 +58,7 @@ function queryPage<T extends IpageParams>(model: Model<any>) {
 }
 
 const getUserListPage = async function (queryParams?: IqueryParams) {
+ 
   const fetchPage = queryPage(userModel);
   const result = await fetchPage(queryParams, ["name", "idCard"]);
   return result;
@@ -69,7 +68,7 @@ export default {
   login,
   findUserById,
   findUserByAccount,
-  register,
+  addUser,
   getUserListPage,
   removeUser,
   updateUser,
