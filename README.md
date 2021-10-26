@@ -1,2 +1,2 @@
 # Khaos
-Koa server for Zola.Zhang
+Koa server
