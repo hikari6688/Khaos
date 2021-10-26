@@ -1,10 +1,6 @@
 import userModel from "../models/userModel";
+import { Model } from "mongoose";
 import { IPage } from "../interface";
-interface IgetUserListPage {
-  name: string;
-  idCard: string;
-  page: IPage;
-}
 
 const register = async function (data: any) {
   return await userModel.create(data);
@@ -29,26 +25,46 @@ const updateUser = async function (data: any) {
 const login = async function (account: string) {
   return await userModel.findOne({ account });
 };
-const getUserListPage = async function (query?: IgetUserListPage) {
-  const { name, idCard, page } = query;
-  const { current = 1, pageSize = 10 } = page;
-  console.log(query);
-  const filter = {
-    $or: [
-      { name: { $regex: name, $options: "$i" } },
-      { idCard: { $regex: idCard } },
-    ],
-  };
-  let result: any = {};
-  result.total = await userModel.find(filter).countDocuments();
-  console.log(result);
-  result.data = await userModel
-    .find(filter)
-    .skip((Number(current) - 1) * Number(pageSize))
-    .limit(Number(pageSize));
 
+interface IpageParams {
+  current?: number;
+  total?: number;
+  pageSize?: number;
+}
+
+interface IqueryParams extends IpageParams {
+  name?: string;
+  idCard?: string;
+}
+
+function queryPage<T extends IpageParams>(model: Model<any>) {
+  return async function (queryPrams: T, queryKeys: Array<any>) {
+    const { current = 1, pageSize = 10 } = queryPrams;
+    console.log(queryKeys);
+    const filter = queryKeys.reduce((pre: any, cur) => {
+      if (queryPrams[cur]) {
+        pre[cur] = { $regex: queryPrams[cur] };
+      }
+      return pre;
+    }, {});
+    console.log(filter);
+    const _filter = { $and: [filter] };
+    const result: any = {};
+    result.total = await model.find(_filter).countDocuments();
+    result.data = await model
+      .find(_filter)
+      .skip((Number(current) - 1) * Number(pageSize))
+      .limit(Number(pageSize));
+    return result;
+  };
+}
+
+const getUserListPage = async function (queryParams?: IqueryParams) {
+  const fetchPage = queryPage(userModel);
+  const result = await fetchPage(queryParams, ["name", "idCard"]);
   return result;
 };
+
 export default {
   login,
   findUserById,

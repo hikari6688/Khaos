@@ -1,3 +1,5 @@
+import { Promise } from "mongoose";
+
 export const catchError = async (ctx: any, next: () => Promise<any>) => {
   try {
     await next();
@@ -6,5 +8,6 @@ export const catchError = async (ctx: any, next: () => Promise<any>) => {
       const { errorCode, ...rest } = error;
       return (ctx.body = { ...rest, code: error.errorCode });
     }
+    return Promise.reject(error);
   }
 };

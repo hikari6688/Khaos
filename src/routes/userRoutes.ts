@@ -8,7 +8,7 @@ import {
   getUserListPage,
   removeUser,
   updateUser,
-  getUserDetail
+  getUserDetail,
 } from "../service/userService";
 //添加登录用户
 router.post("/register", async (ctx: Context) => {

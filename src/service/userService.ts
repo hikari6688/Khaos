@@ -64,13 +64,19 @@ export const getUserListPage = async function (ctx: Context) {
 export const removeUser = async function (ctx: Context) {
   const query = ctx.request.query;
   const user = await userDao.removeUser(query as any);
-  return user;
+  return {
+    code: 200,
+    msg: "用户删除成功",
+  };
 };
 
-export const updateUser = async function (ctx: Context) {
-  const query = ctx.request.query;
+export const updateUser = async function (ctx: any) {
+  const query = ctx.request.body;
   const user = await userDao.updateUser(query as any);
-  return userDao;
+  return {
+    code: 200,
+    msg: "用户信息修改成功",
+  };
 };
 export const getUserDetail = async function (ctx: Context) {
   const query = ctx.request.query;
