@@ -132,6 +132,21 @@
   dependencies:
     "@types/koa" "*"
 
+"@types/koa-send@*":
+  version "4.1.3"
+  resolved "https://registry.nlark.com/@types/koa-send/download/@types/koa-send-4.1.3.tgz?cache=0&sync_timestamp=1629710698933&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40types%2Fkoa-send%2Fdownload%2F%40types%2Fkoa-send-4.1.3.tgz#17193c6472ae9e5d1b99ae8086949cc4fd69179d"
+  integrity sha1-Fxk8ZHKunl0bma6AhpScxP1pF50=
+  dependencies:
+    "@types/koa" "*"
+
+"@types/koa-static@^4.0.2":
+  version "4.0.2"
+  resolved "https://registry.nlark.com/@types/koa-static/download/@types/koa-static-4.0.2.tgz#a199d2d64d2930755eb3ea370aeaf2cb6f501d67"
+  integrity sha1-oZnS1k0pMHVes+o3Curyy29QHWc=
+  dependencies:
+    "@types/koa" "*"
+    "@types/koa-send" "*"
+
 "@types/koa@*", "@types/koa@^2.13.4":
   version "2.13.4"
   resolved "https://registry.nlark.com/@types/koa/download/@types/koa-2.13.4.tgz?cache=0&sync_timestamp=1629708230694&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40types%2Fkoa%2Fdownload%2F%40types%2Fkoa-2.13.4.tgz#10620b3f24a8027ef5cbae88b393d1b31205726b"
@@ -145,6 +160,11 @@
     "@types/keygrip" "*"
     "@types/koa-compose" "*"
     "@types/node" "*"
+
+"@types/lodash@^4.14.175":
+  version "4.14.176"
+  resolved "https://registry.npmmirror.com/@types/lodash/download/@types/lodash-4.14.176.tgz?cache=0&sync_timestamp=1634769182663&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2F%40types%2Flodash%2Fdownload%2F%40types%2Flodash-4.14.176.tgz#641150fc1cda36fbfa329de603bbb175d7ee20c0"
+  integrity sha1-ZBFQ/BzaNvv6Mp3mA7uxddfuIMA=
 
 "@types/mime@^1":
   version "1.3.2"
@@ -725,6 +745,11 @@ lodash.once@^4.0.0:
   version "4.1.1"
   resolved "https://registry.npm.taobao.org/lodash.once/download/lodash.once-4.1.1.tgz#0dd3971213c7c56df880977d504c88fb471a97ac"
   integrity sha1-DdOXEhPHxW34gJd9UEyI+0cal6w=
+
+lodash@^4.17.21:
+  version "4.17.21"
+  resolved "https://registry.nlark.com/lodash/download/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
+  integrity sha1-Z5WRxWTDv/quhFTPCz3zcMPWkRw=
 
 make-error@^1.1.1:
   version "1.3.6"
