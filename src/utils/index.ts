@@ -1,6 +1,12 @@
 import { response } from "../middlewares";
-
+import { Model } from "mongoose";
 const bcrypt = require("bcryptjs");
+
+interface IpageParams {
+  current?: number;
+  total?: number;
+  pageSize?: number;
+}
 
 type PropertyName = string | number | symbol;
 
@@ -16,7 +22,7 @@ export const serialize = (params: string | undefined): Promise<any> => {
   });
 };
 
-export const compareHash =  (data: string, hash: string):Promise<boolean>=> {
+export const compareHash = (data: string, hash: string): Promise<boolean> => {
   return new Promise((resolve, reject) => {
     bcrypt.compare(data, hash, function (err, res) {
       resolve(res);
@@ -51,6 +57,26 @@ export function intall(app: any, args: any[]): void {
   args.forEach((middleware) => {
     app.use(middleware);
   });
+}
+
+export function queryPage<T extends IpageParams>(model: Model<any>) {
+  return async function (queryPrams: T, queryKeys: Array<any>) {
+    const { current = 1, pageSize = 10 } = queryPrams;
+    const filter = queryKeys.reduce((pre: any, cur) => {
+      if (queryPrams[cur]) {
+        pre[cur] = { $regex: queryPrams[cur] };
+      }
+      return pre;
+    }, {});
+    const _filter = { $and: [filter] };
+    const result: any = {};
+    result.total = await model.find(_filter).countDocuments();
+    result.data = await model
+      .find(_filter)
+      .skip((Number(current) - 1) * Number(pageSize))
+      .limit(Number(pageSize));
+    return result;
+  };
 }
 
 export function generateToken() {}
