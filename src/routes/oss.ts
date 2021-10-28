@@ -14,7 +14,7 @@ export async function fileUpload(ctx, next) {
   // 可读流通过管道写入可写流
   reader.pipe(upStream);
   return (ctx.body = {
-    status: "200",
+    code: "200",
     message: "文件上传成功",
     data: {
       imgurl: host + "/oss/" + file.name,
