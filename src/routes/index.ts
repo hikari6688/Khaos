@@ -1,6 +1,6 @@
 import userRoutes from "./userRoutes";
 import employeeRoutes from "./employeeRoutes";
-import fileUpload from "./userRoutes";
+import { fileUpload } from "./oss";
 const Router = require("koa-router");
 const router = new Router();
 router.use("/api/user", userRoutes);
