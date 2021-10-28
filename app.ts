@@ -3,6 +3,7 @@ import { catchError, response } from "./src/middlewares";
 import { intall } from "./src/utils";
 import router from "./src/routes";
 import * as Koa from "koa";
+import { port } from "./src/config";
 const path = require("path");
 const app = new Koa();
 const cors = require("koa2-cors");
@@ -30,7 +31,6 @@ app.use(cors());
 app.use(router.routes());
 app.use(router.allowedMethods());
 app.use(serve(path.join(__dirname, "static")));
-const port = process.env.PORT || 7782;
 app.listen(port, () => {
   console.log(`---server running in ${port}---@Khaos`);
   createConnection();

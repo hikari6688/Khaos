@@ -1,5 +1,6 @@
 import { response } from "../middlewares";
 import { Model } from "mongoose";
+const os = require('os');
 const bcrypt = require("bcryptjs");
 
 interface IpageParams {
@@ -80,3 +81,18 @@ export function queryPage<T extends IpageParams>(model: Model<any>) {
 }
 
 export function generateToken() {}
+
+
+///获取本机ip///
+export function getIPAdress() {
+    var interfaces = os.networkInterfaces();
+    for (var devName in interfaces) {
+        var iface = interfaces[devName];
+        for (var i = 0; i < iface.length; i++) {
+            var alias = iface[i];
+            if (alias.family === 'IPv4' && alias.address !== '127.0.0.1' && !alias.internal) {
+                return alias.address;
+            }
+        }
+    }
+}

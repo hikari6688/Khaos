@@ -1,0 +1,225 @@
+{
+    "name": "aosk_payloadplugin_lidar_chc_as_general_mark",
+    "features": {
+        "signature": "vdp_wgI2DolloW",
+        "cfgName": "LiDARCHCASFeatures",
+        "cfgIcon": "222",
+        "cfgNameI18n": "华测AS/AA系列激光雷达特性",
+        "vars": [
+            {
+                "signature": "vd_erzdEQSpm2",
+                "name": "model",
+                "nameI18n": "型号",
+                "note": "型号",
+                "type": 2,
+                "schema": {},
+                "vardefault": "",
+                "unit": "n/a",
+                "toSI": 1,
+                "access": 1,
+                "uri": "",
+                "options": []
+            }
+        ]
+    },
+    "configs": {
+        "signature": "vdp_FjwdnmhRLf",
+        "cfgName": "LiDARCHCASGeneral",
+        "cfgIcon": "22233",
+        "cfgNameI18n": "华测AS/AA系列激光雷达设置",
+        "vars": [
+            {
+                "signature": "vd_ngTj2oLUWk",
+                "name": "accuracy",
+                "nameI18n": "系统精度",
+                "note": "系统精度",
+                "type": 1,
+                "schema": {},
+                "vardefault": 1,
+                "unit": "cm",
+                "toSI": 100,
+                "access": 1,
+                "uri": "",
+                "options": []
+            },
+            {
+                "signature": "vd_r7PrzPdvGX",
+                "name": "lines",
+                "nameI18n": "线数",
+                "note": "线数",
+                "type": 0,
+                "schema": {},
+                "vardefault": 80,
+                "unit": "#1",
+                "toSI": 1,
+                "access": 1,
+                "uri": "",
+                "options": []
+            },
+            {
+                "signature": "vd_MpnHzdPUdF",
+                "name": "points",
+                "nameI18n": "点数",
+                "note": "点数",
+                "type": 0,
+                "schema": {},
+                "vardefault": 100,
+                "unit": "kHz",
+                "toSI": 0.001,
+                "access": 1,
+                "uri": "",
+                "options": []
+            },
+            {
+                "signature": "vd_QyLHI1GsgZ",
+                "name": "baseDist",
+                "nameI18n": "基站距离",
+                "note": "基站距离",
+                "type": 0,
+                "schema": {},
+                "vardefault": 3,
+                "unit": "km",
+                "toSI": 1000,
+                "access": 1,
+                "uri": "",
+                "options": []
+            },
+            {
+                "signature": "vd_R39j1BSwqa",
+                "name": "pointCloudSideOverlapRate",
+                "nameI18n": "点云旁向重叠率",
+                "note": "旁向重叠率(%)",
+                "type": 1,
+                "schema": {},
+                "vardefault": 80,
+                "unit": "%",
+                "toSI": 1,
+                "access": 7,
+                "uri": "",
+                "options": [
+                    {
+                        "order": 0,
+                        "note": "50%",
+                        "value": 50
+                    },
+                    {
+                        "order": 1,
+                        "note": "60%",
+                        "value": 60
+                    },
+                    {
+                        "order": 2,
+                        "note": "70%",
+                        "value": 70
+                    },
+                    {
+                        "order": 3,
+                        "note": "80%",
+                        "value": 80
+                    },
+                    {
+                        "order": 4,
+                        "note": "90%",
+                        "value": 90
+                    }
+                ]
+            },
+            {
+                "signature": "vd_R39j1BSwqa",
+                "name": "cameraSideOverlapRate",
+                "nameI18n": "相机旁向重叠率",
+                "note": "相机旁向重叠率(%)",
+                "type": 1,
+                "schema": {},
+                "vardefault": 20,
+                "unit": "%",
+                "toSI": 1,
+                "access": 7,
+                "uri": "",
+                "options": [
+                    {
+                        "order": 0,
+                        "note": "10%",
+                        "value": 10
+                    },
+                    {
+                        "order": 1,
+                        "note": "20%",
+                        "value": 20
+                    },
+                    {
+                        "order": 2,
+                        "note": "30%",
+                        "value": 30
+                    },
+                    {
+                        "order": 3,
+                        "note": "40%",
+                        "value": 40
+                    },
+                    {
+                        "order": 4,
+                        "note": "50%",
+                        "value": 50
+                    },
+                    {
+                        "order": 5,
+                        "note": "60%",
+                        "value": 60
+                    }
+                ]
+            },
+            {
+                "signature": "vd_R39j1BSwqa",
+                "name": "cameraHeadOverlapRate",
+                "nameI18n": "相机航向重叠率",
+                "note": "相机航向重叠率(%)",
+                "type": 1,
+                "schema": {},
+                "vardefault": 20,
+                "unit": "%",
+                "toSI": 1,
+                "access": 7,
+                "uri": "",
+                "options": [
+                    {
+                        "order": 0,
+                        "note": "10%",
+                        "value": 10
+                    },
+                    {
+                        "order": 1,
+                        "note": "20%",
+                        "value": 20
+                    },
+                    {
+                        "order": 2,
+                        "note": "30%",
+                        "value": 30
+                    },
+                    {
+                        "order": 3,
+                        "note": "40%",
+                        "value": 40
+                    },
+                    {
+                        "order": 4,
+                        "note": "50%",
+                        "value": 50
+                    },
+                    {
+                        "order": 5,
+                        "note": "60%",
+                        "value": 60
+                    }
+                ]
+            }
+        ]
+    },
+    "advice": {
+        "vdsigs": [
+            "vd_1hIHlu9nsG",
+            "vd_f6WimGh1LY"
+        ]
+    }
+}

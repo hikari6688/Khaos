@@ -1,14 +1,12 @@
 const fs = require("fs");
 const path = require("path");
-const { resolve } = require("path");
-const os = require("os");
+import { host } from "../config";
 export async function fileUpload(ctx, next) {
   // 上传单个文件
   const file = ctx.request.files.file; // 获取上传文件
   const type = file.name.split(".")[1];
   file.name = new Date().getTime() + "." + type;
   // 创建可读流
-  console.log(file.path);
   const reader = fs.createReadStream(file.path);
   const filePath = path.join(path.resolve("./static", "oss", file.name));
   // 创建可写流
@@ -19,7 +17,7 @@ export async function fileUpload(ctx, next) {
     status: "200",
     message: "文件上传成功",
     data: {
-      imgurl: "/oss/" + file.name,
+      imgurl: host + "/oss/" + file.name,
     },
   });
 }
