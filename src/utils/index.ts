@@ -1,12 +1,18 @@
 import { response } from "../middlewares";
 import { Model } from "mongoose";
-const os = require('os');
+const os = require("os");
 const bcrypt = require("bcryptjs");
 
 interface IpageParams {
   current?: number;
   total?: number;
   pageSize?: number;
+}
+
+interface treeNode extends Record<string, any> {
+  _id: string;
+  name: string;
+  parentId?: string;
 }
 
 type PropertyName = string | number | symbol;
@@ -82,17 +88,46 @@ export function queryPage<T extends IpageParams>(model: Model<any>) {
 
 export function generateToken() {}
 
-
 ///获取本机ip///
 export function getIPAdress() {
-    var interfaces = os.networkInterfaces();
-    for (var devName in interfaces) {
-        var iface = interfaces[devName];
-        for (var i = 0; i < iface.length; i++) {
-            var alias = iface[i];
-            if (alias.family === 'IPv4' && alias.address !== '127.0.0.1' && !alias.internal) {
-                return alias.address;
-            }
-        }
+  var interfaces = os.networkInterfaces();
+  for (var devName in interfaces) {
+    var iface = interfaces[devName];
+    for (var i = 0; i < iface.length; i++) {
+      var alias = iface[i];
+      if (
+        alias.family === "IPv4" &&
+        alias.address !== "127.0.0.1" &&
+        !alias.internal
+      ) {
+        return alias.address;
+      }
     }
+  }
+}
+const tableData = [
+  { name: "1", _id: "1", parentId: "0" },
+  { name: "2", _id: "2", parentId: "0" },
+  { name: "3", _id: "3", parentId: "0" },
+  { name: "1-1", _id: "1-1", parentId: "1" },
+  { name: "1-1-1", _id: "1-1-1", parentId: "1-1" },
+];
+
+function makeChildren(treeList: treeNode[], nodeId?: string) {
+  const hasChildren = treeList.find((node) => {
+    return node._id === nodeId;
+  });
+  if (hasChildren) {
+    return treeList.filter((node) => {
+      return node._id === nodeId;
+    });
+  }
+  return false;
+}
+
+export function makeTreeNode(nodeList: treeNode[], nodeId?: string) {
+  const nodes = [];
+  for (const node in nodeList) {
+    
+  }
 }

@@ -52,4 +52,10 @@ export const getDepartmentTree = async function (parantId?: string) {
   if (parantId) {
     return;
   }
+  const deps = await departmentDao.getAlldeps({ parantId: "0" });
+  return {
+    data: deps,
+    code: 200,
+    msg: "sucess",
+  };
 };
