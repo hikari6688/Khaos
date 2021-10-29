@@ -58,7 +58,6 @@ function queryPage<T extends IpageParams>(model: Model<any>) {
 }
 
 const getUserListPage = async function (queryParams?: IqueryParams) {
- 
   const fetchPage = queryPage(userModel);
   const result = await fetchPage(queryParams, ["name", "idCard"]);
   return result;

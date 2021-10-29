@@ -1,4 +1,4 @@
-import { mongoose } from '../db/db';
+import { mongoose } from "../db/db";
 const { Schema } = mongoose;
 const userSchma = new Schema(
   {
@@ -30,7 +30,11 @@ const userSchma = new Schema(
       type: String,
       require: true,
     },
+    deptId: /*机构id*/ {
+      type: String,
+      require: true,
+    },
   },
   { versionKey: false }
 );
-export default mongoose.model('user ', userSchma);
+export default mongoose.model("user ", userSchma);
