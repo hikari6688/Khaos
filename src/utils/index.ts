@@ -1,12 +1,17 @@
 import { response } from "../middlewares";
 import { Model } from "mongoose";
-const os = require('os');
+const os = require("os");
 const bcrypt = require("bcryptjs");
 
 interface IpageParams {
   current?: number;
   total?: number;
   pageSize?: number;
+}
+interface treeNode extends Record<string, any> {
+  _id: string;
+  name: string;
+  parentId?: string;
 }
 
 type PropertyName = string | number | symbol;
@@ -82,17 +87,31 @@ export function queryPage<T extends IpageParams>(model: Model<any>) {
 
 export function generateToken() {}
 
-
 ///获取本机ip///
 export function getIPAdress() {
-    var interfaces = os.networkInterfaces();
-    for (var devName in interfaces) {
-        var iface = interfaces[devName];
-        for (var i = 0; i < iface.length; i++) {
-            var alias = iface[i];
-            if (alias.family === 'IPv4' && alias.address !== '127.0.0.1' && !alias.internal) {
-                return alias.address;
-            }
-        }
+  var interfaces = os.networkInterfaces();
+  for (var devName in interfaces) {
+    var iface = interfaces[devName];
+    for (var i = 0; i < iface.length; i++) {
+      var alias = iface[i];
+      if (
+        alias.family === "IPv4" &&
+        alias.address !== "127.0.0.1" &&
+        !alias.internal
+      ) {
+        return alias.address;
+      }
     }
+  }
+}
+
+export function node2Tree(list: treeNode[], tree: treeNode[], nodeId: string) {
+  list.forEach((node) => {
+    if (node.parentId === nodeId) {
+      node.children = [];
+      node2Tree(list, node.children, node._id);
+      if (!node.children.length) delete node.children;
+      tree && tree.push(node);
+    }
+  });
 }

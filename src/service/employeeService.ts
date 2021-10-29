@@ -30,8 +30,8 @@ export const getEmployeeListPage = async function (ctx: Context) {
   return employeeList;
 };
 
-export const removeEmployee = async function (ctx: Context) {
-  const query = ctx.request.query;
+export const removeEmployee = async function (ctx: any) {
+  const query = ctx.request.body;
   const employee = await employeeDao.removeEmployee(query as any);
   return {
     code: 200,
