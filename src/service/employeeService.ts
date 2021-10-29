@@ -3,7 +3,7 @@ import { Context } from "koa";
 import employeeDao from "../dao/employeeDao";
 import employee from "../models/employeeModel";
 export const addEmployee = async function (ctx: any) {
-  const { name, idCard, avatar, gender, phoneNumber } = ctx.request.body;
+  const { name, idCard, photo, gender, phoneNumber } = ctx.request.body;
   const unique = await employeeDao.findEmployeeById({ idCard });
   if (unique) {
     ctx.throw(500, { errorCode: 500, message: "该身份证已被注册" });
@@ -12,7 +12,7 @@ export const addEmployee = async function (ctx: any) {
     name,
     idCard,
     gender,
-    avatar,
+    photo,
     phoneNumber,
   });
   let employeeResult = await employeeDao.addEmployee(newUser);
@@ -30,8 +30,8 @@ export const getEmployeeListPage = async function (ctx: Context) {
   return employeeList;
 };
 
-export const removeEmployee = async function (ctx: Context) {
-  const query = ctx.request.query;
+export const removeEmployee = async function (ctx: any) {
+  const query = ctx.request.body;
   const employee = await employeeDao.removeEmployee(query as any);
   return {
     code: 200,

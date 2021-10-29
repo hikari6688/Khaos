@@ -61,8 +61,8 @@ export const getUserListPage = async function (ctx: Context) {
   return userList;
 };
 
-export const removeUser = async function (ctx: Context) {
-  const query = ctx.request.query;
+export const removeUser = async function (ctx:any) {
+  const query = ctx.request.body;
   const user = await userDao.removeUser(query as any);
   return {
     code: 200,

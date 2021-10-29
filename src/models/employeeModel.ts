@@ -18,7 +18,7 @@ const employeeSchma = new Schema(
       type: String,
       require: true,
     },
-    avatar: /*头像*/ {
+    photo: /*头像*/ {
       type: String,
       require: true,
     },
