@@ -11,6 +11,7 @@ interface IpageParams {
 interface treeNode extends Record<string, any> {
   _id: string;
   name: string;
+  children?: Array<treeNode>;
   parentId?: string;
 }
 
@@ -105,9 +106,13 @@ export function getIPAdress() {
   }
 }
 
-export function node2Tree(list: treeNode[], tree: treeNode[], nodeId: string) {
+export function node2Tree(
+  list: treeNode[],
+  tree: treeNode[],
+  parentId: string
+) {
   list.forEach((node) => {
-    if (node.parentId === nodeId) {
+    if (node.parentId == parentId) {
       node.children = [];
       node2Tree(list, node.children, node._id);
       if (!node.children.length) delete node.children;
@@ -115,5 +120,3 @@ export function node2Tree(list: treeNode[], tree: treeNode[], nodeId: string) {
     }
   });
 }
-
-

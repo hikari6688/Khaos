@@ -8,7 +8,7 @@ const departmentSchma = new Schema(
     },
     address: /*机构地址*/ {
       type: String,
-      require: true,
+      require: false,
     },
     parentId: /*上级机构id*/ {
       type: String,
@@ -16,11 +16,11 @@ const departmentSchma = new Schema(
     },
     sort: /*排序*/ {
       type: Number,
-      required: true,
+      required: false,
     },
     remark: /*备注*/ {
       type: String,
-      required: true,
+      required: false,
     },
   },
   { versionKey: false }

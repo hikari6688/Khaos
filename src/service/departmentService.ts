@@ -1,6 +1,6 @@
 import { Context } from "koa";
 import departmentDao from "../dao/departmentDao";
-import department from "../models/employeeModel";
+import department from "../models/departmentModel";
 import { node2Tree } from "../utils";
 
 //新增机构
@@ -21,7 +21,7 @@ export const addDepartment = async function (ctx: any) {
   const res = {
     data: result,
     code: 200,
-    msg: "用户添加成功!",
+    msg: "机构添加成功!",
   };
   return res;
 };
@@ -30,7 +30,7 @@ export const addDepartment = async function (ctx: any) {
 export const removeDepartment = async function (ctx: any) {
   const query = ctx.request.body;
   const { id } = query;
-  const deps = await departmentDao.getAlldeps();
+  const deps = await departmentDao.findDepartmentByQuery();
   const hasChildren = deps.find((node) => {
     return node.parentId === id;
   });
@@ -48,22 +48,19 @@ export const removeDepartment = async function (ctx: any) {
 };
 
 export const getDeptLeafOrList = async function (ctx: any) {
-  const parantId = ctx.request.query.parentId;
+  const { parentId } = ctx.request.query;
   /**
    * 参数带id 查询当前id节点下的叶子节点 不带id查询根节点
    */
-  if (parantId) {
-    const nodes = await departmentDao.getAlldeps();
-    const leaf = nodes.filter((node) => {
-      return node._id === parantId;
-    });
+  if (parentId) {
+    const data = await departmentDao.findDepartmentByQuery({ parentId });
     return {
       code: 200,
       msg: "success",
-      data: leaf,
+      data,
     };
   } else {
-    const data = await departmentDao.getAlldeps();
+    const data = await departmentDao.findDepartmentByQuery({ parentId: "0" });
     return {
       code: 200,
       msg: "success",
@@ -77,13 +74,14 @@ export const getDeptTree = async function (ctx: any) {
   /**
    * 参数带id 查询当前id节点下的叶子节点 不带id查询根节点
    */
-  const nodes = await departmentDao.getAlldeps();
-  const tree = [];
-  node2Tree(nodes, tree, "0");
+  let nodes = await departmentDao.findDepartmentByQuery();
+  nodes = JSON.parse(JSON.stringify(nodes));
+  const _tree = [];
+  node2Tree(nodes, _tree, "0");
   return {
     code: 200,
     msg: "success",
-    data: tree,
+    data: _tree,
   };
 };
 

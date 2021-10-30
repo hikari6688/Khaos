@@ -4,17 +4,17 @@ const addDepartment = async function (data: any) {
   return await departmentModel.create(data);
 };
 
-const findDepartmentByQuery = async function (data: any) {
-  return await departmentModel.findOne(data);
+const findDepartmentByQuery = async function (data?: any) {
+  return await departmentModel.find(data);
 };
 
-const removeDepartment = async function (data: any) {};
-
-const getAlldeps = async function (arg?) {
-  return await departmentModel.find(arg);
+const removeDepartment = async function (data: any) {
+  return await departmentModel.deleteOne({ _id: data.id });
 };
+
 
 const updateDepartment = async function (data: any) {
+  console.log(data);
   return await departmentModel.updateOne({ _id: data.id }, data);
 };
 
@@ -23,5 +23,4 @@ export default {
   addDepartment,
   removeDepartment,
   updateDepartment,
-  getAlldeps,
 };
