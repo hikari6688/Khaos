@@ -2,8 +2,9 @@ import { omit, uniq } from "lodash";
 import { Context } from "koa";
 import employeeDao from "../dao/employeeDao";
 import employee from "../models/employeeModel";
+import departmentDao from "../dao/departmentDao";
 export const addEmployee = async function (ctx: any) {
-  const { name, idCard, photo, gender, phoneNumber } = ctx.request.body;
+  const { name, idCard, photo, deptId, gender, phoneNumber } = ctx.request.body;
   const unique = await employeeDao.findEmployeeById({ idCard });
   if (unique) {
     ctx.throw(500, { errorCode: 500, message: "该身份证已被注册" });
@@ -14,6 +15,7 @@ export const addEmployee = async function (ctx: any) {
     gender,
     photo,
     phoneNumber,
+    deptId,
   });
   let employeeResult = await employeeDao.addEmployee(newUser);
   const res = {
@@ -24,10 +26,31 @@ export const addEmployee = async function (ctx: any) {
   return res;
 };
 
+function getDeptNameById(depts, id) {
+  let name = null;
+  for (let item of depts) {
+    if (item._id === id) {
+      name = item.name;
+      break;
+    }
+  }
+  return name;
+}
+
 export const getEmployeeListPage = async function (ctx: Context) {
   const query = ctx.request.query;
   const employeeList = await employeeDao.getEmployeeListPage(query as any);
-  return employeeList;
+  const departmens = await departmentDao.getAllDepts();
+  const employeeData = employeeList.data;
+  const _employeeList = employeeData.map((employee) => {
+    if (employee.deptId) {
+      const name = getDeptNameById(departmens, employee.deptId);
+      employee.deptName = name;
+    }
+    return employee;
+  });
+  console.log(_employeeList);
+  return { ...employeeList, data: _employeeList };
 };
 
 export const removeEmployee = async function (ctx: any) {

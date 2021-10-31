@@ -7,7 +7,8 @@ import { node2Tree } from "../utils";
 export const addDepartment = async function (ctx: any) {
   const { name, address, parentId, sort, remark } = ctx.request.body;
   const unique = await departmentDao.findDepartmentByQuery({ name });
-  if (unique) {
+  console.log(unique);
+  if (unique && unique.length) {
     ctx.throw(500, { errorCode: 500, message: "该机构名已存在" });
   }
   const newUser = new department({
@@ -70,11 +71,11 @@ export const getDeptLeafOrList = async function (ctx: any) {
 };
 
 export const getDeptTree = async function (ctx: any) {
-  const parantId = ctx.request.query.parentId;
+  const { parantId, name='' } = ctx.request.query;
   /**
    * 参数带id 查询当前id节点下的叶子节点 不带id查询根节点
    */
-  let nodes = await departmentDao.findDepartmentByQuery();
+  let nodes = await departmentDao.findDepartmentByQuery({ name });
   nodes = JSON.parse(JSON.stringify(nodes));
   const _tree = [];
   node2Tree(nodes, _tree, "0");

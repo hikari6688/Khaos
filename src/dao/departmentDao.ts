@@ -5,13 +5,14 @@ const addDepartment = async function (data: any) {
 };
 
 const findDepartmentByQuery = async function (data?: any) {
-  return await departmentModel.find(data);
+  return await departmentModel.find({ name: { $regex: data.name } });
 };
-
+const getAllDepts = async function () {
+  return await departmentModel.find();
+};
 const removeDepartment = async function (data: any) {
   return await departmentModel.deleteOne({ _id: data.id });
 };
-
 
 const updateDepartment = async function (data: any) {
   console.log(data);
@@ -23,4 +24,5 @@ export default {
   addDepartment,
   removeDepartment,
   updateDepartment,
+  getAllDepts,
 };

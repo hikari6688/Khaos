@@ -30,10 +30,6 @@ const userSchma = new Schema(
       type: String,
       require: true,
     },
-    deptId: /*机构id*/ {
-      type: String,
-      require: true,
-    },
   },
   { versionKey: false }
 );
