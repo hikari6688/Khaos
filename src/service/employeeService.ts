@@ -26,31 +26,27 @@ export const addEmployee = async function (ctx: any) {
   return res;
 };
 
-function getDeptNameById(depts, id) {
-  let name = null;
-  for (let item of depts) {
-    if (item._id === id) {
-      name = item.name;
-      break;
-    }
-  }
-  return name;
-}
-
 export const getEmployeeListPage = async function (ctx: Context) {
   const query = ctx.request.query;
-  const employeeList = await employeeDao.getEmployeeListPage(query as any);
+  const EmployeeListPage = await employeeDao.getEmployeeListPage(query as any);
   const departmens = await departmentDao.getAllDepts();
-  const employeeData = employeeList.data;
-  const _employeeList = employeeData.map((employee) => {
-    if (employee.deptId) {
-      const name = getDeptNameById(departmens, employee.deptId);
-      employee.deptName = name;
-    }
-    return employee;
+  const NameMap = {};
+  departmens.forEach((item) => {
+    NameMap[item._id] = item.name;
   });
-  console.log(_employeeList);
-  return { ...employeeList, data: _employeeList };
+  const dataWithName = EmployeeListPage.data.map((item) => {
+    return {
+      _id: item._id,
+      name: item.name,
+      idCard: item.idCard,
+      gender: item.gender,
+      phoneNumber: item.phoneNumber,
+      photo: item.photo,
+      deptId: item.deptId,
+      deptName: NameMap[item.deptId],
+    };
+  });
+  return {...EmployeeListPage,data:dataWithName}
 };
 
 export const removeEmployee = async function (ctx: any) {
