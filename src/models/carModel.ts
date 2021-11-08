@@ -2,7 +2,7 @@ import { mongoose } from "../db/db";
 const { Schema } = mongoose;
 const carSchma = new Schema(
   {
-    name: /*司机id*/ {
+    driverIds: /*司机id*/ {
       type: Array,
       require: true,
     },
@@ -10,7 +10,7 @@ const carSchma = new Schema(
       type: String,
       required: true,
     },
-    load: /*载重*/ {
+    load: /*载重[吨]*/ {
       type: Number,
       required: true,
     },
@@ -33,4 +33,4 @@ const carSchma = new Schema(
   },
   { versionKey: false }
 );
-export default mongoose.model("user ", carSchma);
+export default mongoose.model("car", carSchma);

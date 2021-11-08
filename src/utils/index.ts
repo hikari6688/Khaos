@@ -8,6 +8,12 @@ interface IpageParams {
   total?: number;
   pageSize?: number;
 }
+interface treeNode extends Record<string, any> {
+  _id: string;
+  name: string;
+  children?: Array<treeNode>;
+  parentId?: string;
+}
 
 interface treeNode extends Record<string, any> {
   _id: string;
@@ -105,29 +111,20 @@ export function getIPAdress() {
     }
   }
 }
-const tableData = [
-  { name: "1", _id: "1", parentId: "0" },
-  { name: "2", _id: "2", parentId: "0" },
-  { name: "3", _id: "3", parentId: "0" },
-  { name: "1-1", _id: "1-1", parentId: "1" },
-  { name: "1-1-1", _id: "1-1-1", parentId: "1-1" },
-];
 
-function makeChildren(treeList: treeNode[], nodeId?: string) {
-  const hasChildren = treeList.find((node) => {
-    return node._id === nodeId;
+
+
+export function node2Tree(
+  list: treeNode[],
+  tree: treeNode[],
+  parentId: string
+) {
+  list.forEach((node) => {
+    if (node.parentId == parentId) {
+      node.children = [];
+      node2Tree(list, node.children, node._id);
+      if (!node.children.length) delete node.children;
+      tree && tree.push(node);
+    }
   });
-  if (hasChildren) {
-    return treeList.filter((node) => {
-      return node._id === nodeId;
-    });
-  }
-  return false;
-}
-
-export function makeTreeNode(nodeList: treeNode[], nodeId?: string) {
-  const nodes = [];
-  for (const node in nodeList) {
-    
-  }
 }

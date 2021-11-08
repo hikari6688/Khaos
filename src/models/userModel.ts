@@ -1,4 +1,4 @@
-import { mongoose } from '../db/db';
+import { mongoose } from "../db/db";
 const { Schema } = mongoose;
 const userSchma = new Schema(
   {
@@ -33,4 +33,4 @@ const userSchma = new Schema(
   },
   { versionKey: false }
 );
-export default mongoose.model('user ', userSchma);
+export default mongoose.model("user ", userSchma);
